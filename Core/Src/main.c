@@ -145,7 +145,7 @@ float Get_ADC_MA_Vref(uint16_t *adc_vrefint_buffer) {
 }
 
 float Get_ADC_Voltage(float raw_voltage) {
-	return (raw_voltage / 4095.0) * Vrefint * 2.0;
+	return (raw_voltage / 4095.0) * Vrefint * 2.0 *1.03;
 }
 
 float Get_ADC_Vrefint(float raw_vrefint) {
@@ -153,7 +153,7 @@ float Get_ADC_Vrefint(float raw_vrefint) {
 }
 
 float Get_ADC_Current(float raw_current) {
-	return ((raw_current) - Crefint) / (lts_Vsamp) / 0.9875;
+	return (((raw_current / 4095.0) * Vrefint * 2.0) - Crefint) / (lts_Vsamp);
 }
 
 double Get_ADC_Temp(uint16_t adc_value) {
@@ -166,16 +166,16 @@ double Get_ADC_Temp(uint16_t adc_value) {
 	return temp;
 }
 
-float Get_ADC_Moving_Average(uint16_t *adc_value_buffer) {
-	float sum_adc_value = 0;
-	uint8_t i = 0;
-	for (; i < NOS; i++) {
-		sum_adc_value = sum_adc_value + adc_value_buffer[i];
-
-	}
-	sum_adc_value = sum_adc_value / NOS;
-	return (sum_adc_value / 4095.0) * Vrefint * 2.0 / 0.9642;
-}
+//float Get_ADC_Moving_Average(uint16_t *adc_value_buffer) {
+//	float sum_adc_value = 0;
+//	uint8_t i = 0;
+//	for (; i < NOS; i++) {
+//		sum_adc_value = sum_adc_value + adc_value_buffer[i];
+//
+//	}
+//	sum_adc_value = sum_adc_value / NOS;
+//	return (sum_adc_value / 4095.0) * Vrefint * 2.0;
+//}
 // END CODE OF READING AND PROCESSING ADC VALUES WITH MOVING AVERAGE //
 
 void Calibration_ADC() {
@@ -318,8 +318,7 @@ int main(void)
 			ADC_Select_Voltage();
 			batValue.voltage = Get_ADC_Voltage(Get_ADC_Value());
 			ADC_Select_Current();
-			batValue.current = Get_ADC_Current(
-					Get_ADC_Voltage(Get_ADC_Value()));
+			batValue.current = Get_ADC_Current(Get_ADC_Value());
 			sprintf((char*) usart.tx_data, "%d,%1.3f,%1.3f,%1.3f\n",
 					relayStatus, batValue.voltage, batValue.current,
 					batValue.temp);
@@ -337,9 +336,9 @@ int main(void)
 				adc_buf = true;
 			}
 			if (adc_buf == true) {
-				batValue.voltage = Get_ADC_Moving_Average(adc_voltage_value);
+				batValue.voltage = Get_ADC_Voltage(Get_ADC_MA_Vref(adc_voltage_value));
 				batValue.current = Get_ADC_Current(
-						Get_ADC_Moving_Average(adc_current_value));
+						Get_ADC_MA_Vref(adc_current_value));
 				sprintf((char*) usart.tx_data, "%d,%1.3f,%1.3f,%1.3f\n",
 						relayStatus, batValue.voltage, batValue.current,
 						batValue.temp);

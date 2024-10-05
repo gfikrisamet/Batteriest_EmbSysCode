@@ -6,7 +6,7 @@
 ../Core/Src/main.c:138:7:Get_ADC_MA_Vref	48	static
 ../Core/Src/main.c:147:7:Get_ADC_Voltage	24	static
 ../Core/Src/main.c:151:7:Get_ADC_Vrefint	16	static
-../Core/Src/main.c:155:7:Get_ADC_Current	16	static
+../Core/Src/main.c:155:7:Get_ADC_Current	24	static
 ../Core/Src/main.c:159:8:Get_ADC_Temp	24	static
 ../Core/Src/main.c:169:7:Get_ADC_Moving_Average	32	static
 ../Core/Src/main.c:181:6:Calibration_ADC	16	static
@@ -15,10 +15,10 @@
 ../Core/Src/main.c:238:6:HAL_UARTEx_RxEventCallback	24	static
 ../Core/Src/main.c:251:6:HAL_TIM_PeriodElapsedCallback	16	static
 ../Core/Src/main.c:277:5:main	48	static
-../Core/Src/main.c:374:6:SystemClock_Config	88	static
-../Core/Src/main.c:421:13:MX_ADC1_Init	8	static
-../Core/Src/main.c:464:13:MX_TIM1_Init	32	static
-../Core/Src/main.c:507:13:MX_USART1_UART_Init	8	static
-../Core/Src/main.c:535:13:MX_DMA_Init	16	static
-../Core/Src/main.c:553:13:MX_GPIO_Init	40	static
-../Core/Src/main.c:585:6:Error_Handler	4	static,ignoring_inline_asm
+../Core/Src/main.c:373:6:SystemClock_Config	88	static
+../Core/Src/main.c:420:13:MX_ADC1_Init	8	static
+../Core/Src/main.c:463:13:MX_TIM1_Init	32	static
+../Core/Src/main.c:506:13:MX_USART1_UART_Init	8	static
+../Core/Src/main.c:534:13:MX_DMA_Init	16	static
+../Core/Src/main.c:552:13:MX_GPIO_Init	40	static
+../Core/Src/main.c:584:6:Error_Handler	4	static,ignoring_inline_asm
